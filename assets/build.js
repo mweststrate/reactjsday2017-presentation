@@ -7,6 +7,10 @@ const rootDir = path.join(__dirname, "..")
 const srcDir = path.join(rootDir, "src")
 const tmpDir = path.join(rootDir, "tmp")
 
+if(!fs.existsSync(tmpDir)){
+    fs.mkdirSync(tmpDir)
+}
+
 let files = fs.readdirSync(srcDir)
 files.sort()
 
