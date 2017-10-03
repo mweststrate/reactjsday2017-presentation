@@ -17,28 +17,41 @@ Letś type this
 
 ---
 
+Split to primitives, collection, higher order types
+
 ```
-enumeration
 model
-compose
-reference
-union
-optional
-literal
-maybe
-refinement
+map
+array
+
 string
+literal
 boolean
 number
 Date
-map
-array
+reference
 frozen
-identifier
-late
 undefined
 null
+
+enumeration
+compose
+union
+optional
+maybe
+refinement
+identifier
+late
 ```
+
+---
+
+
+# Demo
+
+???
+
+Connect demo to appstore
 
 ---
 
@@ -66,7 +79,9 @@ Free: in perf costs, but also in effor: no need to produce a new state tree
 
 ???
 
-Connect demo to appstore
+Introduce actions
+
+Tnx local storage for showing changes
 
 ---
 
@@ -80,29 +95,11 @@ Connect demo to appstore
 
 ---
 
-# Demo
-
-???
-
-Introduce actions
-
-Tnx local storage for showing changes
-
----
-
 # Actions
 
 * .appear[Can change own subtree]
 * .appear[Discoverable]
 * .appear[Bound]
-
----
-
-# Views
-
-* .appear[Derived values]
-* .appear[Memoized. Fully reacty. Powered by MobX]
-* .appear[`observer` FTW]
 
 ---
 
@@ -116,4 +113,11 @@ Connect observer
 
 Use filteredTodos
 
+---
+
+# Views
+
+* .appear[Derived values]
+* .appear[Memoized. Fully reacty. Powered by MobX]
+* .appear[`observer` FTW]
 

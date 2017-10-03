@@ -1,15 +1,8 @@
 ## And...Redux?
 
---
 - Snapshot could be considered our redux state
-
---
 - onSnapshot could be considered our store subscription
-
---
 - applyAction could be considered our dispatch
-
---
 - observer is our connect
 
 ---

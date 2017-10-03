@@ -2,7 +2,12 @@
 
 ---
 
-# Demo
+```javascript
+                snapshotDisposer = onSnapshot(targetStore, todos => {
+                    self.history.push(snapshot)
+                    self.undoIdx++
+                })
+```
 
 ---
 
@@ -43,6 +48,10 @@ lifecycle hooks
 
 ---
 
+# Demo
+
+---
+
 # But...
 
 .appear[Time travelling with snapshot sucks]
@@ -74,24 +83,6 @@ Add undo / redo manager
 
 ---
 
-# Middleware
-
-
-<img src="img/git.png" width="50" />
-
-Like git hooks
-
-_pre- / post process specific commands_
-
-* .appear[Listen to specific action or all actions in subtree]
-* .appear[First class support for asynchronous processes]
-* .appear[`addMiddleware(store, handler)`]
-* .appear[`handler: (call: ICall, next: (call) => any) => any`]
-
-
-
----
-
 # Patches
 
 RFC-6902
@@ -104,7 +95,6 @@ Like a git patch
 _Describes the modifications from one commit to the next_
 
 Fine grained
-
 
 ---
 
@@ -125,7 +115,12 @@ afterCreate() {
     })
 
     addMiddleware(undoRedoMiddleware, targetStore)
-},
+}
+```
+
+---
+
+```
 undo() {
     applyPatch(targetStore, self.history[--self.undoIdx].inversePatches)
 }

@@ -446,28 +446,41 @@ Letś type this
 
 ---
 
+Split to primitives, collection, higher order types
+
 ```
-enumeration
 model
-compose
-reference
-union
-optional
-literal
-maybe
-refinement
+map
+array
+
 string
+literal
 boolean
 number
 Date
-map
-array
+reference
 frozen
-identifier
-late
 undefined
 null
+
+enumeration
+compose
+union
+optional
+maybe
+refinement
+identifier
+late
 ```
+
+---
+
+
+# Demo
+
+???
+
+Connect demo to appstore
 
 ---
 
@@ -495,7 +508,9 @@ Free: in perf costs, but also in effor: no need to produce a new state tree
 
 ???
 
-Connect demo to appstore
+Introduce actions
+
+Tnx local storage for showing changes
 
 ---
 
@@ -509,29 +524,11 @@ Connect demo to appstore
 
 ---
 
-# Demo
-
-???
-
-Introduce actions
-
-Tnx local storage for showing changes
-
----
-
 # Actions
 
 * .appear[Can change own subtree]
 * .appear[Discoverable]
 * .appear[Bound]
-
----
-
-# Views
-
-* .appear[Derived values]
-* .appear[Memoized. Fully reacty. Powered by MobX]
-* .appear[`observer` FTW]
 
 ---
 
@@ -545,6 +542,13 @@ Connect observer
 
 Use filteredTodos
 
+---
+
+# Views
+
+* .appear[Derived values]
+* .appear[Memoized. Fully reacty. Powered by MobX]
+* .appear[`observer` FTW]
 
 
 ---
@@ -554,7 +558,12 @@ Use filteredTodos
 
 ---
 
-# Demo
+```javascript
+                snapshotDisposer = onSnapshot(targetStore, todos => {
+                    self.history.push(snapshot)
+                    self.undoIdx++
+                })
+```
 
 ---
 
@@ -595,6 +604,10 @@ lifecycle hooks
 
 ---
 
+# Demo
+
+---
+
 # But...
 
 .appear[Time travelling with snapshot sucks]
@@ -626,24 +639,6 @@ Add undo / redo manager
 
 ---
 
-# Middleware
-
-
-<img src="img/git.png" width="50" />
-
-Like git hooks
-
-_pre- / post process specific commands_
-
-* .appear[Listen to specific action or all actions in subtree]
-* .appear[First class support for asynchronous processes]
-* .appear[`addMiddleware(store, handler)`]
-* .appear[`handler: (call: ICall, next: (call) => any) => any`]
-
-
-
----
-
 # Patches
 
 RFC-6902
@@ -656,7 +651,6 @@ Like a git patch
 _Describes the modifications from one commit to the next_
 
 Fine grained
-
 
 ---
 
@@ -677,7 +671,12 @@ afterCreate() {
     })
 
     addMiddleware(undoRedoMiddleware, targetStore)
-},
+}
+```
+
+---
+
+```
 undo() {
     applyPatch(targetStore, self.history[--self.undoIdx].inversePatches)
 }
@@ -687,16 +686,9 @@ undo() {
 
 ## And...Redux?
 
---
 - Snapshot could be considered our redux state
-
---
 - onSnapshot could be considered our store subscription
-
---
 - applyAction could be considered our dispatch
-
---
 - observer is our connect
 
 ---
@@ -717,15 +709,6 @@ const reduxStore = asReduxStore(store)
 ???
 
 connect devtools
----
-<!-- 20_types_intro.md-->
-
-# Introduction to types (5 min, maybe less?)
-
-Define a router with a field being an array of opened pages (LoginPage, RegisterPage, HomePage, etc..)
-Introduce types.array
-Show that create/applySnapshot will continue to work as expected
-
 ---
 <!-- 90_outro.md-->
 
