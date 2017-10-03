@@ -226,50 +226,501 @@ div.lighten {
 		<textarea id="source">
 <!-- 00_intro.md-->
 
-<img src="img/paper1.jpg" style="
-    position: absolute;
-    left: -109px;
-    top: 0px;
-    height: 100%;
-"    />
-
-<div style="
-    position: absolute;
-    top: 0px;
-    left: 525px;
-    width: 50%;
-    background: white;
-    height: 700px;
-    padding: 40px;
-">
-<br/><br/>
 <img src="img/mobx2.png" height="80px" />
 <img src="img/logo.png" style="height:80px"/>
 ## Mutable or Immutable? Why not both!
 
-<small>
 ReactJS Day Verona 2017
 
-Michel Weststrate - @mweststrate
 Mattia Manzati - @mattiamanzati
-</small>
+
+Michel Weststrate - @mweststrate
 <br/><br/>
 
 <img src="img/mendix-logo.png" height="60px" /><br/>
 
-<div>
+---
+
+# How to do state management in React?
+
+.inline_block[
+
+1. .appear[`setState`] .appear[<br/>_Mèh... _].appear[_ said Michele_].appear[_ maybe_]
+2. .appear[`Redux`] .appear[<br/>_I guess you get paid by the hour_]
+3. .appear[`MobX`] .appear[<br/>_Stop the whitchcraft, heritic!_]
+]
+
+.appear[
+<i class="em em-astonished"></i>]
+
+---
+
+## Comparing the opposite patterns
+
+.appear[
+    `redux === immutable`
+]
+.appear[
+    `mobx === mutable`
+]
+
+---
+
+
+## Redux
+
+```javascript
+const initialState = {name: "", done: false}
+function todoReducer(state = initialState, action){
+    if(!action) return state
+
+    switch(action.type){
+        case TOGGLE_TODO:
+            return ({...state, done: !state.done})
+        default:
+            return state
+    }
+}
+```
+
+???
+
+In Redux the reducer could be considered the core concept of data modeling, and that's predictable.
+Since we are dealing with immutable data, we could not change an instance, so the focus of our code will
+always be the data transformation rather than it's shape.
+Due to that, our data shape is kinda lost in all of that code.
+
+---
+
+## Redux
+
+```javascript
+const TOGGLE_TODO = 'todo/TOGGLE_TODO'
+export function toggleTodo(){
+    return { type: TOGGLE_TODO }
+}
+```
+
+???
+
+And while we are at it, we could note that reducer and actions are'nt colocated, and that IMHO could potentially make our code less readable.
+
+---
+
+## MobX
+
+```javascript
+class Todo {
+    @observable name = ""
+    @observable done = false
+
+    @action toggle(){
+        this.done != this.done
+    }
+}
+```
+
+???
+
+Most of the people using MobX up to now used ES6 classes up to now, and that's nice. It lets you write clean code that express both data shape and actions in the same place making it highly readable.
+
+---
+
+### MobX
+.appear[Pros: Data shape is clear]
+
+### Redux
+.appear[Cons: Data shape is kinda lost]
+
+---
+
+## Data Rehydration
+
+```javascript
+const serverData = {
+    name: "Attend React Alicante",
+    done: true
+}
+```
+
+---
+
+### Redux
+
+```javascript
+const newState = todoReducer(serverData, toggleTodo())
+// newState.done === false
+```
+
+???
+
+Since Redux uses immutable objects, they won't contain any application business logic like actions, computeds, etc...
+So it is really easy to rehydrate data onto our store, you just need to pass it onto your reducer.
+---
+
+### MobX
+
+```javascript
+class Todo {
+    // ...
+    @computed get snapshot(){
+        return {
+            name: this.name,
+            done: this.done
+        }
+    }
+
+    @action applySnapshot(snapshot){
+        this.name = snapshot.name
+        this.done = snapshot.done
+    }
+}
+```
+
+???
+
+Unfortunately, MobX uses classes, so it won't accept our server data, we need to define a property and a method to manage de/serialization.
+
+---
+### MobX
+.appear[Cons: Use classes, internal state, local actions, strong typing, reactivity. But hard de/serialization]
+
+### Redux
+.appear[Pros: Use plain objects, external state, no need for de/serialization]
+
+---
+
+## Redux state snapshots are awesome!
+- Allow time travel
+- Make testing easier
+- Better dev tools
+
+---
+
+## What if we could get them for free?
+.appear[We need to know the data shape]
+
+.appear[We need de/serialization fn() for each shape]
+
+
+
+---
+
+`redux || mobx`
+
+.appear[`true`]
+
+---
 
 ---
 <!-- 10_intro_to_mst.md-->
 
-# Introduction to MST (10 min)
+## Content in slides notes
+We need to sort out if use it, edit it out or split it.
 
-How to declare a model using untyped API (e.g. LoginPage with user & pwd fields)
-LoginPage.create will produce an observable object with the given defaults
-Show that a snapshot could be provided to restore an instance state (either applyState/.create)
-Make the audience realize that we could have time travel based on that
-A store is snapshot data + model (later we’ll call it type) structure.
+???
+Mutable and Immutable are for sure the current opposite paradigms, each one with its pros and its cons.
 
+As developers we always try to find the ultimate solution, and the quest for that solution sometimes make us forget about what we learnt and approach new ways of doing things
+
+So maybe instead of approaching a completely new paradigm, we should look behind, learn from our journey, and see if we can get the best of what we learnt
+
+Mutable data structures are perfect for continuosly-changing values; forms for example are an example of highly-continuosly-changing data structures, that would require lot of new immutable objects to be allocated in memory as we interact with our forms.
+
+On the other hand, Immutable structures are awesome, they allow easy testing and when they only contains serializable data they make easy to de/rehydrate our application state.
+
+---
+
+# Demo app!
+
+???
+
+Static demo app, just json
+
+Letś type this
+
+---
+
+# Types
+
+* Describe the shape of the tree
+* Runtime checking
+* Designtime checking
+* Composable & Extensible
+
+---
+
+```
+enumeration
+model
+compose
+reference
+union
+optional
+literal
+maybe
+refinement
+string
+boolean
+number
+Date
+map
+array
+frozen
+identifier
+late
+undefined
+null
+```
+
+---
+
+# Snapshots
+
+<img src="img/git.png" width="50" />
+
+Like a git commit
+
+_Describes the entire state at a specific moment in time_
+
+* .appear[Capture entire state in plain objects]
+* .appear[Immutable]
+* .appear[Structurally shared]
+* .appear[Free]
+* .appear[Can be used to create or update instances ].appear[_ Reconciliation_]
+
+???
+
+Free: in perf costs, but also in effor: no need to produce a new state tree
+
+---
+
+# Demo
+
+???
+
+Connect demo to appstore
+
+---
+
+# Types
+
+* .appear[Enrich data]
+* .appear[Actions]
+* .appear[Views]
+* .appear[Local / private state]
+* .appear[Life cycle]
+
+---
+
+# Demo
+
+???
+
+Introduce actions
+
+Tnx local storage for showing changes
+
+---
+
+# Actions
+
+* .appear[Can change own subtree]
+* .appear[Discoverable]
+* .appear[Bound]
+
+---
+
+# Views
+
+* .appear[Derived values]
+* .appear[Memoized. Fully reacty. Powered by MobX]
+* .appear[`observer` FTW]
+
+---
+
+# Demo
+
+???
+
+Add computed fields
+
+Connect observer
+
+Use filteredTodos
+
+
+
+---
+<!-- 15_middleware.md-->
+
+# Time Travelling!
+
+---
+
+# Demo
+
+---
+
+```javascript
+const TimeTraveller = types.model({
+        history: types.optional(types.array(types.frozen), []),
+        undoIdx: -1,
+        targetPath: types.string
+    })
+    .actions(self => {
+        let targetStore, snapshotDisposer
+
+        return {
+            afterCreate() {
+                targetStore = resolvePath(self, self.targetPath)
+                snapshotDisposer = onSnapshot(targetStore, todos => {
+                    self.history.push(snapshot)
+                    self.undoIdx++
+                })
+            },
+            undo() {
+                applySnapshot(targetStore, self.history[--self.undoIdx])
+            },
+            beforeDestroy() {
+                snapshotDisposer()
+            }
+        }
+    })
+```
+
+???
+
+Frozen type
+
+local state
+
+lifecycle hooks
+
+---
+
+# But...
+
+.appear[Time travelling with snapshot sucks]
+
+---
+
+# Demo
+
+???
+
+Add timeout stuff
+
+---
+
+# Real undo / redo
+
+.inline_block[
+1. .appear[Record patches and inverse apply them].appear[<br/><img src="img/git.png" width="50" />_Like git revert_<br/><br/>]
+1. .appear[Record start state, rewind, replay all non-failing actions].appear[<br/><img src="img/git.png" width="50" />_Like git rebase_]
+]
+
+---
+
+# Demo
+
+???
+
+Add undo / redo manager
+
+---
+
+# Middleware
+
+
+<img src="img/git.png" width="50" />
+
+Like git hooks
+
+_pre- / post process specific commands_
+
+* .appear[Listen to specific action or all actions in subtree]
+* .appear[First class support for asynchronous processes]
+* .appear[`addMiddleware(store, handler)`]
+* .appear[`handler: (call: ICall, next: (call) => any) => any`]
+
+
+
+---
+
+# Patches
+
+RFC-6902
+Transmission ready
+
+<img src="img/git.png" width="50" />
+
+Like a git patch
+
+_Describes the modifications from one commit to the next_
+
+Fine grained
+
+
+---
+
+```javascript
+// ... like Time Traveller
+afterCreate() {
+    const undoRedoMiddleware = createActionTrackingMiddleware({
+        onStart: call => recordPatches(call.tree),
+        onResume: (call, recorder) => recorder.resume(),
+        onSuspend: (call, recorder) => recorder.stop(),
+        onSuccess: (call, recorder) => {
+            self.history.push({
+                patches: recorder.patches,
+                inversePatches: recorder.inversePatches
+            })
+        },
+        onFail: (call, recorder) => recorder.undo()
+    })
+
+    addMiddleware(undoRedoMiddleware, targetStore)
+},
+undo() {
+    applyPatch(targetStore, self.history[--self.undoIdx].inversePatches)
+}
+```
+---
+<!-- 17_redux.md-->
+
+## And...Redux?
+
+--
+- Snapshot could be considered our redux state
+
+--
+- onSnapshot could be considered our store subscription
+
+--
+- applyAction could be considered our dispatch
+
+--
+- observer is our connect
+
+---
+
+## We can convert an MST instance into a redux store!
+
+```javascript
+import {asReduxStore}
+    from 'mobx-state-tree/middleware/redux'
+
+const reduxStore = asReduxStore(store)
+```
+
+---
+
+# Demo
+
+???
+
+connect devtools
 ---
 <!-- 20_types_intro.md-->
 
@@ -309,6 +760,19 @@ Given a MST type it could be used as Redux store
 
 ---
 <!-- 90_outro.md-->
+
+
+<img src="img/logo.png" style="height:80px"/>
+
+# Mobx-state-tree
+
+<img src="img/react.svg" width="50" /> It's React
+
+<img src="img/git.png" width="50" /> It's Git
+
+...but for data
+
+@mweststrate - Mendix
 
 # Mobx-state-tree
 
