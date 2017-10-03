@@ -264,6 +264,18 @@ Michel Weststrate - @mweststrate
     `mobx === mutable`
 ]
 
+???
+
+Mutable and Immutable are for sure the current opposite paradigms, each one with its pros and its cons.
+
+As developers we always try to find the ultimate solution, and the quest for that solution sometimes make us forget about what we learnt and approach new ways of doing things
+
+So maybe instead of approaching a completely new paradigm, we should look behind, learn from our journey, and see if we can get the best of what we learnt
+
+Mutable data structures are perfect for continuosly-changing values; forms for example are an example of highly-continuosly-changing data structures, that would require lot of new immutable objects to be allocated in memory as we interact with our forms.
+
+On the other hand, Immutable structures are awesome, they allow easy testing and when they only contains serializable data they make easy to de/rehydrate our application state.
+
 ---
 
 
@@ -414,22 +426,6 @@ Unfortunately, MobX uses classes, so it won't accept our server data, we need to
 
 ---
 <!-- 10_intro_to_mst.md-->
-
-## Content in slides notes
-We need to sort out if use it, edit it out or split it.
-
-???
-Mutable and Immutable are for sure the current opposite paradigms, each one with its pros and its cons.
-
-As developers we always try to find the ultimate solution, and the quest for that solution sometimes make us forget about what we learnt and approach new ways of doing things
-
-So maybe instead of approaching a completely new paradigm, we should look behind, learn from our journey, and see if we can get the best of what we learnt
-
-Mutable data structures are perfect for continuosly-changing values; forms for example are an example of highly-continuosly-changing data structures, that would require lot of new immutable objects to be allocated in memory as we interact with our forms.
-
-On the other hand, Immutable structures are awesome, they allow easy testing and when they only contains serializable data they make easy to de/rehydrate our application state.
-
----
 
 # Demo app!
 
@@ -731,34 +727,6 @@ Introduce types.array
 Show that create/applySnapshot will continue to work as expected
 
 ---
-<!-- 30_types.md-->
-
-# How types were introduced in MST (5 min)
-
-Define another model (e.g. CreateUserPage) with compatible snapshot. (user & pwd & mail fields)
-Union will throw because of multiple applicable types
-Introduce a “type” field on each model, using types.literal to distinguish
-
----
-<!-- 40_validation.md-->
-
-# Runtime & Build time validation (5 min)
-
-Show that we can use types.string/number/etc…
-Runtime validation when passing invalid or missing fields (optional type)
-Union can now use type information to distinguish
-Build time validation with TS
-
----
-<!-- 50_killer.md-->
-
-# Killer feature?
-
-Given a MST type it could be used as Redux store
-...or as reducer
-...mapPropsToTypes, maybe?
-
----
 <!-- 90_outro.md-->
 
 
@@ -774,12 +742,8 @@ Given a MST type it could be used as Redux store
 
 @mweststrate - Mendix
 
-# Mobx-state-tree
-
-<hr/>
-
-@mweststrate - Mendix
 @mattiamanzati
+
 		</textarea>
 		<script>require=(function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require=="function"&&require;if(!s&&o)return o(n,!0);if(r)return r(n,!0);throw new Error("Cannot find module '"+n+"'")}var u=t[n]={exports:{}};e[n][0].call(u.exports,function(t){var r=e[n][1][t];return i(r?r:t)},u,u.exports)}return t[n].exports}var r=typeof require=="function"&&require;for(var s=0;s<n.length;s++)i(n[s]);return i})({"components/printing":[function(require,module,exports){
 module.exports=require('yoGRCZ');
