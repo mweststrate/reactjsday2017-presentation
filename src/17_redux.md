@@ -1,20 +1,24 @@
-## And...Redux?
+# MST as Redux
 
-- Snapshot could be considered our redux state
-- onSnapshot could be considered our store subscription
-- applyAction could be considered our dispatch
-- observer is our connect
+.inline_block[
+- `state` &rarr; snapshot
+- `subscribe` &rarr; `onSnapshot`
+- `dispatch` &rarr; `applyAction`
+- `connect` &rarr; `observer`
+]
 
 ---
 
-## We can convert an MST instance into a redux store!
+# MST as Redux
 
+.inline_block[
 ```javascript
 import {asReduxStore}
     from 'mobx-state-tree/middleware/redux'
 
 const reduxStore = asReduxStore(store)
 ```
+]
 
 ---
 

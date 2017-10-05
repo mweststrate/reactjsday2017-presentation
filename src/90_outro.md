@@ -9,6 +9,6 @@
 
 ...but for data
 
-@mweststrate - Mendix
+`npm install mobx-state-tree`
 
-@mattiamanzati
+@mweststrate - @mattiamanzati

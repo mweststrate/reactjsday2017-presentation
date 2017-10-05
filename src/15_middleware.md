@@ -2,15 +2,18 @@
 
 ---
 
+.inline_block[
 ```javascript
-                snapshotDisposer = onSnapshot(targetStore, todos => {
-                    self.history.push(snapshot)
-                    self.undoIdx++
-                })
+snapshotDisposer = onSnapshot(targetStore, todos => {
+    self.history.push(snapshot)
+    self.undoIdx++
+})
 ```
+]
 
 ---
 
+.inline_block[
 ```javascript
 const TimeTraveller = types.model({
         history: types.optional(types.array(types.frozen), []),
@@ -37,6 +40,7 @@ const TimeTraveller = types.model({
         }
     })
 ```
+]
 
 ???
 
@@ -85,19 +89,21 @@ Add undo / redo manager
 
 # Patches
 
-RFC-6902
-Transmission ready
-
 <img src="img/git.png" width="50" />
 
 Like a git patch
 
 _Describes the modifications from one commit to the next_
 
-Fine grained
+.inline_block[
+* .appear[Monitor fine grained changes]
+* .appear[RFC-6902]
+* .appear[Transmission ready]
+]
 
 ---
 
+.inline_block[
 ```javascript
 // ... like Time Traveller
 afterCreate() {
@@ -117,11 +123,14 @@ afterCreate() {
     addMiddleware(undoRedoMiddleware, targetStore)
 }
 ```
+]
 
 ---
 
-```
-undo() {
+.inline_block[
+```javascript
+function undo() {
     applyPatch(targetStore, self.history[--self.undoIdx].inversePatches)
 }
 ```
+]

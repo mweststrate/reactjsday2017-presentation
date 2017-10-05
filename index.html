@@ -2,9 +2,9 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Mutable or Immutable? Why not both!</title>
+		<title>Mutable or Immutable? Both!</title>
 		<style>
-			@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Raleway|Archivo+Black|Patrick+Hand');
+			/* @import url('https://fonts.googleapis.com/css?family=Playfair+Display|Raleway|Archivo+Black|Patrick+Hand'); */
 
 h1, h2, h3 {
     /*font-family: 'Playfair Display', serif;*/
@@ -228,7 +228,7 @@ div.lighten {
 
 <img src="img/mobx2.png" height="80px" />
 <img src="img/logo.png" style="height:80px"/>
-## Mutable or Immutable? Why not both!
+## Mutable or Immutable? Both!
 
 ReactJS Day Verona 2017
 
@@ -246,7 +246,7 @@ Michel Weststrate - @mweststrate
 .inline_block[
 
 1. .appear[`setState`] .appear[<br/>_Mèh... _].appear[_ said Michele_].appear[_ maybe_]
-2. .appear[`Redux`] .appear[<br/>_I guess you get paid by the hour_]
+2. .appear[`Redux`] .appear[<br/>_You get paid per hour?_]
 3. .appear[`MobX`] .appear[<br/>_Stop the whitchcraft, heritic!_]
 ]
 
@@ -255,7 +255,7 @@ Michel Weststrate - @mweststrate
 
 ---
 
-## Comparing the opposite patterns
+# Comparing the opposite patterns
 
 .appear[
     `redux === immutable`
@@ -279,8 +279,9 @@ On the other hand, Immutable structures are awesome, they allow easy testing and
 ---
 
 
-## Redux
+# Redux
 
+.inline_block[
 ```javascript
 const initialState = {name: "", done: false}
 function todoReducer(state = initialState, action){
@@ -294,6 +295,7 @@ function todoReducer(state = initialState, action){
     }
 }
 ```
+]
 
 ???
 
@@ -304,14 +306,16 @@ Due to that, our data shape is kinda lost in all of that code.
 
 ---
 
-## Redux
+# Redux
 
+.inline_block[
 ```javascript
 const TOGGLE_TODO = 'todo/TOGGLE_TODO'
 export function toggleTodo(){
     return { type: TOGGLE_TODO }
 }
 ```
+]
 
 ???
 
@@ -319,8 +323,9 @@ And while we are at it, we could note that reducer and actions are'nt colocated,
 
 ---
 
-## MobX
+# MobX
 
+.inline_block[
 ```javascript
 class Todo {
     @observable name = ""
@@ -331,6 +336,7 @@ class Todo {
     }
 }
 ```
+]
 
 ???
 
@@ -338,31 +344,37 @@ Most of the people using MobX up to now used ES6 classes up to now, and that's n
 
 ---
 
-### MobX
-.appear[Pros: Data shape is clear]
+`MobX`
 
-### Redux
-.appear[Cons: Data shape is kinda lost]
+Data shape is explicit
+
+`Redux`
+
+Data shape is implicit
 
 ---
 
-## Data Rehydration
+# Data Rehydration
 
+.inline_block[
 ```javascript
 const serverData = {
     name: "Attend React Alicante",
     done: true
 }
 ```
+]
 
 ---
 
-### Redux
+# Redux
 
+.inline_block[
 ```javascript
 const newState = todoReducer(serverData, toggleTodo())
 // newState.done === false
 ```
+]
 
 ???
 
@@ -370,8 +382,9 @@ Since Redux uses immutable objects, they won't contain any application business 
 So it is really easy to rehydrate data onto our store, you just need to pass it onto your reducer.
 ---
 
-### MobX
+# MobX
 
+.inline_block[
 ```javascript
 class Todo {
     // ...
@@ -388,33 +401,38 @@ class Todo {
     }
 }
 ```
+]
 
 ???
 
 Unfortunately, MobX uses classes, so it won't accept our server data, we need to define a property and a method to manage de/serialization.
 
 ---
-### MobX
-.appear[Cons: Use classes, internal state, local actions, strong typing, reactivity. But hard de/serialization]
+`MobX`
 
-### Redux
-.appear[Pros: Use plain objects, external state, no need for de/serialization]
+(Usually) classes. Unlimited data shape. De/serialization is hard
+
+`Redux`
+
+Plain objects. Tree structure only. Serialization is done in actions
 
 ---
 
-## Redux state snapshots are awesome!
+# Redux state snapshots are awesome!
+
+.inline_block[
 - Allow time travel
 - Make testing easier
 - Better dev tools
+]
 
 ---
 
-## What if we could get them for free?
-.appear[We need to know the data shape]
+# What if we could get them for free?
 
-.appear[We need de/serialization fn() for each shape]
+.appear[Declare data shape]
 
-
+.appear[De/serialization can be derived]
 
 ---
 
@@ -427,7 +445,7 @@ Unfortunately, MobX uses classes, so it won't accept our server data, we need to
 ---
 <!-- 10_intro_to_mst.md-->
 
-# Demo app!
+# Demo
 
 ???
 
@@ -439,10 +457,12 @@ Letś type this
 
 # Types
 
+.inline_block[
 * Describe the shape of the tree
 * Runtime checking
 * Designtime checking
 * Composable & Extensible
+]
 
 ---
 
@@ -480,37 +500,7 @@ late
 
 ???
 
-Connect demo to appstore
-
----
-
-# Snapshots
-
-<img src="img/git.png" width="50" />
-
-Like a git commit
-
-_Describes the entire state at a specific moment in time_
-
-* .appear[Capture entire state in plain objects]
-* .appear[Immutable]
-* .appear[Structurally shared]
-* .appear[Free]
-* .appear[Can be used to create or update instances ].appear[_ Reconciliation_]
-
-???
-
-Free: in perf costs, but also in effor: no need to produce a new state tree
-
----
-
-# Demo
-
-???
-
-Introduce actions
-
-Tnx local storage for showing changes
+Connect demo to app store
 
 ---
 
@@ -524,11 +514,23 @@ Tnx local storage for showing changes
 
 ---
 
+# Demo
+
+???
+
+Introduce actions
+
+Connect observer
+
+---
+
 # Actions
 
+.inline_block[
 * .appear[Can change own subtree]
 * .appear[Discoverable]
 * .appear[Bound]
+]
 
 ---
 
@@ -538,7 +540,6 @@ Tnx local storage for showing changes
 
 Add computed fields
 
-Connect observer
 
 Use filteredTodos
 
@@ -546,10 +547,40 @@ Use filteredTodos
 
 # Views
 
+.inline_block[
 * .appear[Derived values]
 * .appear[Memoized. Fully reacty. Powered by MobX]
 * .appear[`observer` FTW]
+]
 
+---
+
+# Demo
+
+???
+
+add local storage
+
+---
+
+# Snapshots
+
+<img src="img/git.png" width="50" />
+
+Like a git commit
+
+_Describes the entire state at a specific moment in time_
+
+.inline_block[
+* .appear[Immutable]
+* .appear[Structurally shared]
+* .appear[Free]
+* .appear[Can be used to apply changes].appear[<br/>_ Reconciliation_]
+]
+
+???
+
+Free: in perf costs, but also in effor: no need to produce a new state tree
 
 ---
 <!-- 15_middleware.md-->
@@ -558,15 +589,18 @@ Use filteredTodos
 
 ---
 
+.inline_block[
 ```javascript
-                snapshotDisposer = onSnapshot(targetStore, todos => {
-                    self.history.push(snapshot)
-                    self.undoIdx++
-                })
+snapshotDisposer = onSnapshot(targetStore, todos => {
+    self.history.push(snapshot)
+    self.undoIdx++
+})
 ```
+]
 
 ---
 
+.inline_block[
 ```javascript
 const TimeTraveller = types.model({
         history: types.optional(types.array(types.frozen), []),
@@ -593,6 +627,7 @@ const TimeTraveller = types.model({
         }
     })
 ```
+]
 
 ???
 
@@ -641,19 +676,21 @@ Add undo / redo manager
 
 # Patches
 
-RFC-6902
-Transmission ready
-
 <img src="img/git.png" width="50" />
 
 Like a git patch
 
 _Describes the modifications from one commit to the next_
 
-Fine grained
+.inline_block[
+* .appear[Monitor fine grained changes]
+* .appear[RFC-6902]
+* .appear[Transmission ready]
+]
 
 ---
 
+.inline_block[
 ```javascript
 // ... like Time Traveller
 afterCreate() {
@@ -673,34 +710,41 @@ afterCreate() {
     addMiddleware(undoRedoMiddleware, targetStore)
 }
 ```
+]
 
 ---
 
-```
-undo() {
+.inline_block[
+```javascript
+function undo() {
     applyPatch(targetStore, self.history[--self.undoIdx].inversePatches)
 }
 ```
+]
 ---
 <!-- 17_redux.md-->
 
-## And...Redux?
+# MST as Redux
 
-- Snapshot could be considered our redux state
-- onSnapshot could be considered our store subscription
-- applyAction could be considered our dispatch
-- observer is our connect
+.inline_block[
+- `state` &rarr; snapshot
+- `subscribe` &rarr; `onSnapshot`
+- `dispatch` &rarr; `applyAction`
+- `connect` &rarr; `observer`
+]
 
 ---
 
-## We can convert an MST instance into a redux store!
+# MST as Redux
 
+.inline_block[
 ```javascript
 import {asReduxStore}
     from 'mobx-state-tree/middleware/redux'
 
 const reduxStore = asReduxStore(store)
 ```
+]
 
 ---
 
@@ -723,9 +767,9 @@ connect devtools
 
 ...but for data
 
-@mweststrate - Mendix
+`npm install mobx-state-tree`
 
-@mattiamanzati
+@mweststrate - @mattiamanzati
 
 		</textarea>
 		<script>require=(function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require=="function"&&require;if(!s&&o)return o(n,!0);if(r)return r(n,!0);throw new Error("Cannot find module '"+n+"'")}var u=t[n]={exports:{}};e[n][0].call(u.exports,function(t){var r=e[n][1][t];return i(r?r:t)},u,u.exports)}return t[n].exports}var r=typeof require=="function"&&require;for(var s=0;s<n.length;s++)i(n[s]);return i})({"components/printing":[function(require,module,exports){

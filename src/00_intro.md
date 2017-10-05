@@ -1,6 +1,6 @@
 <img src="img/mobx2.png" height="80px" />
 <img src="img/logo.png" style="height:80px"/>
-## Mutable or Immutable? Why not both!
+## Mutable or Immutable? Both!
 
 ReactJS Day Verona 2017
 
@@ -18,7 +18,7 @@ Michel Weststrate - @mweststrate
 .inline_block[
 
 1. .appear[`setState`] .appear[<br/>_Mèh... _].appear[_ said Michele_].appear[_ maybe_]
-2. .appear[`Redux`] .appear[<br/>_I guess you get paid by the hour_]
+2. .appear[`Redux`] .appear[<br/>_You get paid per hour?_]
 3. .appear[`MobX`] .appear[<br/>_Stop the whitchcraft, heritic!_]
 ]
 
@@ -27,7 +27,7 @@ Michel Weststrate - @mweststrate
 
 ---
 
-## Comparing the opposite patterns
+# Comparing the opposite patterns
 
 .appear[
     `redux === immutable`
@@ -51,8 +51,9 @@ On the other hand, Immutable structures are awesome, they allow easy testing and
 ---
 
 
-## Redux
+# Redux
 
+.inline_block[
 ```javascript
 const initialState = {name: "", done: false}
 function todoReducer(state = initialState, action){
@@ -66,6 +67,7 @@ function todoReducer(state = initialState, action){
     }
 }
 ```
+]
 
 ???
 
@@ -76,14 +78,16 @@ Due to that, our data shape is kinda lost in all of that code.
 
 ---
 
-## Redux
+# Redux
 
+.inline_block[
 ```javascript
 const TOGGLE_TODO = 'todo/TOGGLE_TODO'
 export function toggleTodo(){
     return { type: TOGGLE_TODO }
 }
 ```
+]
 
 ???
 
@@ -91,8 +95,9 @@ And while we are at it, we could note that reducer and actions are'nt colocated,
 
 ---
 
-## MobX
+# MobX
 
+.inline_block[
 ```javascript
 class Todo {
     @observable name = ""
@@ -103,6 +108,7 @@ class Todo {
     }
 }
 ```
+]
 
 ???
 
@@ -110,31 +116,37 @@ Most of the people using MobX up to now used ES6 classes up to now, and that's n
 
 ---
 
-### MobX
-.appear[Pros: Data shape is clear]
+`MobX`
 
-### Redux
-.appear[Cons: Data shape is kinda lost]
+Data shape is explicit
+
+`Redux`
+
+Data shape is implicit
 
 ---
 
-## Data Rehydration
+# Data Rehydration
 
+.inline_block[
 ```javascript
 const serverData = {
     name: "Attend React Alicante",
     done: true
 }
 ```
+]
 
 ---
 
-### Redux
+# Redux
 
+.inline_block[
 ```javascript
 const newState = todoReducer(serverData, toggleTodo())
 // newState.done === false
 ```
+]
 
 ???
 
@@ -142,8 +154,9 @@ Since Redux uses immutable objects, they won't contain any application business 
 So it is really easy to rehydrate data onto our store, you just need to pass it onto your reducer.
 ---
 
-### MobX
+# MobX
 
+.inline_block[
 ```javascript
 class Todo {
     // ...
@@ -160,33 +173,38 @@ class Todo {
     }
 }
 ```
+]
 
 ???
 
 Unfortunately, MobX uses classes, so it won't accept our server data, we need to define a property and a method to manage de/serialization.
 
 ---
-### MobX
-.appear[Cons: Use classes, internal state, local actions, strong typing, reactivity. But hard de/serialization]
+`MobX`
 
-### Redux
-.appear[Pros: Use plain objects, external state, no need for de/serialization]
+(Usually) classes. Unlimited data shape. De/serialization is hard
+
+`Redux`
+
+Plain objects. Tree structure only. Serialization is done in actions
 
 ---
 
-## Redux state snapshots are awesome!
+# Redux state snapshots are awesome!
+
+.inline_block[
 - Allow time travel
 - Make testing easier
 - Better dev tools
+]
 
 ---
 
-## What if we could get them for free?
-.appear[We need to know the data shape]
+# What if we could get them for free?
 
-.appear[We need de/serialization fn() for each shape]
+.appear[Declare data shape]
 
-
+.appear[De/serialization can be derived]
 
 ---
 

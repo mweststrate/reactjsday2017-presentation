@@ -1,4 +1,4 @@
-# Demo app!
+# Demo
 
 ???
 
@@ -10,10 +10,12 @@ Letś type this
 
 # Types
 
+.inline_block[
 * Describe the shape of the tree
 * Runtime checking
 * Designtime checking
 * Composable & Extensible
+]
 
 ---
 
@@ -51,37 +53,7 @@ late
 
 ???
 
-Connect demo to appstore
-
----
-
-# Snapshots
-
-<img src="img/git.png" width="50" />
-
-Like a git commit
-
-_Describes the entire state at a specific moment in time_
-
-* .appear[Capture entire state in plain objects]
-* .appear[Immutable]
-* .appear[Structurally shared]
-* .appear[Free]
-* .appear[Can be used to create or update instances ].appear[_ Reconciliation_]
-
-???
-
-Free: in perf costs, but also in effor: no need to produce a new state tree
-
----
-
-# Demo
-
-???
-
-Introduce actions
-
-Tnx local storage for showing changes
+Connect demo to app store
 
 ---
 
@@ -95,11 +67,23 @@ Tnx local storage for showing changes
 
 ---
 
+# Demo
+
+???
+
+Introduce actions
+
+Connect observer
+
+---
+
 # Actions
 
+.inline_block[
 * .appear[Can change own subtree]
 * .appear[Discoverable]
 * .appear[Bound]
+]
 
 ---
 
@@ -109,7 +93,6 @@ Tnx local storage for showing changes
 
 Add computed fields
 
-Connect observer
 
 Use filteredTodos
 
@@ -117,7 +100,37 @@ Use filteredTodos
 
 # Views
 
+.inline_block[
 * .appear[Derived values]
 * .appear[Memoized. Fully reacty. Powered by MobX]
 * .appear[`observer` FTW]
+]
 
+---
+
+# Demo
+
+???
+
+add local storage
+
+---
+
+# Snapshots
+
+<img src="img/git.png" width="50" />
+
+Like a git commit
+
+_Describes the entire state at a specific moment in time_
+
+.inline_block[
+* .appear[Immutable]
+* .appear[Structurally shared]
+* .appear[Free]
+* .appear[Can be used to apply changes].appear[<br/>_ Reconciliation_]
+]
+
+???
+
+Free: in perf costs, but also in effor: no need to produce a new state tree
