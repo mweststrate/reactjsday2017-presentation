@@ -1,10 +1,15 @@
 
-# Mobx-state-tree
 
+<table><tr><td>
+.appear[
+    <img src="img/quote.png" width="400"/>
+]
+</td><td>
+.appear[
 <img src="img/giphy.gif.1" width="400"/>
+]
+</td></tr></table>
 
-<img src="img/react.svg" width="50" /> It's React, <img src="img/git.png" width="50" /> It's Git, <img src="img/logo.png" width="50"/>...but for data
+.appear[`npm install mobx-state-tree`].appear[<i class="em em-star2"></i>]
 
-`npm install mobx-state-tree`
-
-@mweststrate - @mattiamanzati
+.appear[@mweststrate - @mattiamanzati]
