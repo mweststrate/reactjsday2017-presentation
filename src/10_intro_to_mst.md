@@ -19,12 +19,19 @@ Letś type this
 
 ---
 
-Split to primitives, collection, higher order types
+<table><tr><td style="vertical-align:top">
+<pre>
+Collection types
+================
 
-```
 model
 map
 array
+</pre>
+</td><td style="vertical-align:top">
+<pre>
+Primitive types
+===============
 
 string
 literal
@@ -35,6 +42,11 @@ reference
 frozen
 undefined
 null
+</pr>
+</td><td style="vertical-align:top">
+<pre>
+Higher Order Types
+==================
 
 enumeration
 compose
@@ -44,7 +56,8 @@ maybe
 refinement
 identifier
 late
-```
+</pre>
+</td></tr></table>
 
 ---
 
@@ -59,11 +72,13 @@ Connect demo to app store
 
 # Types
 
+.inline_block[
 * .appear[Enrich data]
 * .appear[Actions]
 * .appear[Views]
 * .appear[Local / private state]
 * .appear[Life cycle]
+]
 
 ---
 
