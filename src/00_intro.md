@@ -131,7 +131,7 @@ Data shape is implicit
 .inline_block[
 ```javascript
 const serverData = {
-    name: "Attend React Alicante",
+    name: "Visit the opera!",
     done: true
 }
 ```

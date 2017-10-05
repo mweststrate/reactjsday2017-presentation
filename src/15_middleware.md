@@ -4,24 +4,49 @@
 
 .inline_block[
 ```javascript
-snapshotDisposer = onSnapshot(targetStore, todos => {
-    self.history.push(snapshot)
-    self.undoIdx++
+import { onSnapshot, applySnapshot } from "mobx-state-tree"
+
+const store = SomeModel.create()
+
+const states = []
+
+onSnapshot(store, snapshot => {
+    states.push(snapshot)
 })
+
+function undo() {
+    applySnapshot(store, states.pop())
+}
 ```
 ]
 
 ---
 
+# Demo
+
+???
+
+add time traveller
+
+---
+
 .inline_block[
+.appear[
 ```javascript
 const TimeTraveller = types.model({
         history: types.optional(types.array(types.frozen), []),
         undoIdx: -1,
         targetPath: types.string
     })
+```
+]
+.appear[
+```javascript
     .actions(self => {
         let targetStore, snapshotDisposer
+```
+].appear[
+```javascript
 
         return {
             afterCreate() {
@@ -31,15 +56,24 @@ const TimeTraveller = types.model({
                     self.undoIdx++
                 })
             },
+```
+]
+.appear[
+```javascript
             undo() {
                 applySnapshot(targetStore, self.history[--self.undoIdx])
             },
+```
+]
+.appear[
+```javascript
             beforeDestroy() {
                 snapshotDisposer()
             }
         }
     })
 ```
+]
 ]
 
 ???
@@ -52,13 +86,7 @@ lifecycle hooks
 
 ---
 
-# Demo
-
----
-
-# But...
-
-.appear[Time travelling with snapshot sucks]
+# Time travelling !== Undo / Redo
 
 ---
 

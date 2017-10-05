@@ -1,0 +1,72 @@
+1: static app
+
+- App renders static data
+- App components are dumb, render once, thats it
+
+2: introduce models
+
+- Gonna capture the same data, but in a typefull state tree
+- For each object define state in model
+- For primitives type will be inferred
+- Not relevant for this app, but we can compose complex types
+- .. and the model of the tree makes it possible to to design and run time type checking
+
+
+
+But types are useful for more than type checking. 
+- Attach behavior, actions, views, 
+- But even fancier. Because all state lives in tree we can attach lifecycle events to the data. Behavior what should happen if data instance are created, or added to the tree. Or removed!
+
+3. actions
+
+- The actions that are applicable to a type are defined by a function that exports them. Actions are defined in a closer which can be used to capture local / internal state. 
+- Actions are for this reason always bound correctly, they operate on a closure variable rather than this
+- Actions are the only way to modify the tree
+- Actions are straightforward to write. You can just modify the tree, and an immutable snapshot is generated in the background. MST takes care of that. No manual tree state tree building!
+- Because MST knows the structure of our tree, we don't have to instantiate things like Todo's ourselves. We can do that. But if we just provide some raw data, MST will understand that it needs to be a Todo and will enhance the data appropiately
+
+3. views
+
+- Views are pieces of information that can be derived from our data
+- They are backed by the famous mobx computed values and fully reactive
+- That means that once we start using those computeds in our components, the component will automatically start to respond to changes in them as well
+
+4. snapshots
+- we talked about snapshots a few times already
+- snapshots are automatically generated in the background as soon as you modify something in the tree
+- we can create an snapshot handler to be notified each time a new snapshot is produced
+- with this we can for example create time travelling, or we can make sure the state is synced with localstorage
+- snapshots are immutable, structurally shared and effectively free to optain
+- and of course we can snapshots to restore the state. 
+- but also we can apply a snapshot to an existing tree to a certain state. In that case MST will be smart and update only the relevant parts. In other words; reconciliation
+
+5. TIme traveller
+
+- So let's add time travelling to this app. MST ships with a standalone reference implementation to get you going quickly
+
+- Cool thing is that is expressed in MST itself
+- So this time traveller is a MST model itself, and it combines everything we learned so far
+- it's state being the recorded history and current position inhiroty, and a target to which part of the tree it should observe
+- note the frozen type, it can be used to store any piece of immutable information, such as a snapshot in this case
+- then in the create hook we set up a snapshot listener, store the subsccriptionin some private local state
+- because MST is fractal, each node in the tree is a MST tree itself, and so we can also to listen to changes in just some subtree
+- and finally clean up stuff by disposing the listener when the Time traveller is cleaned up
+
+6. Automattically apply changes
+
+- If we simulate incoming changes, from server or other user we quickly see time travelling is insufficient for undo redo...
+
+7. UndoRedoManager
+
+- Fixes our problem
+- Implemented in MST as well
+- leverages the concept of patches
+- patches describe changes that are made to the system
+- UndoRedoManager records patches that are generated during an actions
+- Even during async actions, as MST has first class support for them
+- Patches can be reverse applied
+- The only reason why we can have patches is because we have a mutable tree at our disposal, so mobx can tell notify excactly when some changes, and where the change happened. Unlike immutable state trees, where you only get a new tree, but no efficient diff with the previous one
+
+8. Remote devtools demo?
+
+
