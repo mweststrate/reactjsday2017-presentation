@@ -20,6 +20,8 @@ const reduxStore = asReduxStore(store)
 ```
 ]
 
+.appear[<i class="em em-cupid"></i>]
+
 ---
 
 # Demo

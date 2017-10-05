@@ -12,6 +12,11 @@ body {
     color: black;
 }
 
+body .em {
+    height: 2em;
+    width: 2em;
+}
+
 .remark-slide-content {
     background-color: white;
 }

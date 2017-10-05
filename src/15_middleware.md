@@ -1,4 +1,14 @@
+---
+
+class: fullscreenw
+
+<img src="img/opera2.jpg" />
+
+---
+
 # Time Travelling!
+
+<i class="em em-clock8"></i>
 
 ---
 
@@ -87,6 +97,9 @@ lifecycle hooks
 ---
 
 # Time travelling !== Undo / Redo
+
+<i class="em em-expressionless"></i>
+
 
 ---
 

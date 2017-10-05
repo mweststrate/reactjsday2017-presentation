@@ -1,3 +1,11 @@
+---
+
+class: fullscreenw
+
+<img src="img/opera3.jpg" />
+
+---
+
 # Demo
 
 ???
@@ -18,6 +26,8 @@ Letś type this
 ]
 
 ---
+
+# Types
 
 <table><tr><td style="vertical-align:top">
 <pre>

@@ -13,6 +13,16 @@ Michel Weststrate - @mweststrate
 
 ---
 
+<img src="img/operalogo.png" />
+
+---
+
+class: fullscreenw
+
+<img src="img/opera1.jpg" />
+
+---
+
 # How to do state management in React?
 
 .inline_block[
@@ -22,8 +32,7 @@ Michel Weststrate - @mweststrate
 3. .appear[`MobX`] .appear[<br/>_Stop the whitchcraft, heritic!_]
 ]
 
-.appear[
-<i class="em em-astonished"></i>]
+.appear[<i class="em em-astonished"></i>]
 
 ---
 
@@ -35,6 +44,8 @@ Michel Weststrate - @mweststrate
 .appear[
     `mobx === mutable`
 ]
+
+.appear[<i class="em em-bowtie"></i>]
 
 ???
 
@@ -124,6 +135,8 @@ Data shape is explicit
 
 Data shape is implicit
 
+.appear[<i class="em em-camel"></i>]
+
 ---
 
 # Data Rehydration
@@ -188,6 +201,8 @@ Unfortunately, MobX uses classes, so it won't accept our server data, we need to
 
 Plain objects. Tree structure only. Serialization is done in actions
 
+.appear[<i class="em em-christmas_tree"></i>]
+
 ---
 
 # Redux state snapshots are awesome!
@@ -202,14 +217,27 @@ Plain objects. Tree structure only. Serialization is done in actions
 
 # What if we could get them for free?
 
+
 .appear[Declare data shape]
 
-.appear[De/serialization can be derived]
+.appear[<i class="em em-smirk"></i>]
+
+.appear[De/serialization becomes free]
 
 ---
 
 `redux || mobx`
 
 .appear[`true`]
+
+.appear[`mobx-state-tree`]
+
+.appear[<i class="em em-heart_eyes"></i>]
+.appear[+]
+.appear[<i class="em em-bride_with_veil"></i>]
+.appear[&rarr;]
+.appear[<i class="em em-baby"></i>]
+
+
 
 ---
