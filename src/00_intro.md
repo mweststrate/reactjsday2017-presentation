@@ -27,9 +27,10 @@ class: fullscreenw
 
 .inline_block[
 
-1. .appear[`setState`] .appear[<br/>_Mèh... _].appear[_ said Michele_].appear[_ maybe_]
+1. .appear[`setState`] .appear[<br/>_Might be enough_]
 2. .appear[`Redux`] .appear[<br/>_You get paid per hour?_]
 3. .appear[`MobX`] .appear[<br/>_Stop the whitchcraft, heritic!_]
+3. .appear[`jquery.data + refs`] .appear[<br/>_You are my true hero_]
 ]
 
 .appear[<i class="em em-astonished"></i>]
