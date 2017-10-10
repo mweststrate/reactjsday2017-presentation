@@ -18,6 +18,11 @@ body {
     color: black;
 }
 
+body .em {
+    height: 2em;
+    width: 2em;
+}
+
 .remark-slide-content {
     background-color: white;
 }
@@ -241,17 +246,27 @@ Michel Weststrate - @mweststrate
 
 ---
 
+<img src="img/operalogo.png" />
+
+---
+
+class: fullscreenw
+
+<img src="img/opera1.jpg" />
+
+---
+
 # How to do state management in React?
 
 .inline_block[
 
-1. .appear[`setState`] .appear[<br/>_Mèh... _].appear[_ said Michele_].appear[_ maybe_]
+1. .appear[`setState`] .appear[<br/>_Might be enough_]
 2. .appear[`Redux`] .appear[<br/>_You get paid per hour?_]
 3. .appear[`MobX`] .appear[<br/>_Stop the whitchcraft, heritic!_]
+3. .appear[`jquery.data + refs`] .appear[<br/>_You are my true hero_]
 ]
 
-.appear[
-<i class="em em-astonished"></i>]
+.appear[<i class="em em-astonished"></i>]
 
 ---
 
@@ -263,6 +278,8 @@ Michel Weststrate - @mweststrate
 .appear[
     `mobx === mutable`
 ]
+
+.appear[<i class="em em-bowtie"></i>]
 
 ???
 
@@ -352,6 +369,8 @@ Data shape is explicit
 
 Data shape is implicit
 
+.appear[<i class="em em-camel"></i>]
+
 ---
 
 # Data Rehydration
@@ -359,7 +378,7 @@ Data shape is implicit
 .inline_block[
 ```javascript
 const serverData = {
-    name: "Attend React Alicante",
+    name: "Visit the opera!",
     done: true
 }
 ```
@@ -416,6 +435,8 @@ Unfortunately, MobX uses classes, so it won't accept our server data, we need to
 
 Plain objects. Tree structure only. Serialization is done in actions
 
+.appear[<i class="em em-christmas_tree"></i>]
+
 ---
 
 # Redux state snapshots are awesome!
@@ -430,9 +451,12 @@ Plain objects. Tree structure only. Serialization is done in actions
 
 # What if we could get them for free?
 
+
 .appear[Declare data shape]
 
-.appear[De/serialization can be derived]
+.appear[<i class="em em-smirk"></i>]
+
+.appear[De/serialization becomes free]
 
 ---
 
@@ -440,10 +464,28 @@ Plain objects. Tree structure only. Serialization is done in actions
 
 .appear[`true`]
 
+.appear[`mobx-state-tree`]
+
+.appear[<i class="em em-heart_eyes"></i>]
+.appear[+]
+.appear[<i class="em em-bride_with_veil"></i>]
+.appear[&rarr;]
+.appear[<i class="em em-baby"></i>]
+
+
+
 ---
 
 ---
 <!-- 10_intro_to_mst.md-->
+
+---
+
+class: fullscreenw
+
+<img src="img/opera3.jpg" />
+
+---
 
 # Demo
 
@@ -465,6 +507,8 @@ Letś type this
 ]
 
 ---
+
+# Types
 
 <table><tr><td style="vertical-align:top">
 <pre>
@@ -600,30 +644,65 @@ Free: in perf costs, but also in effor: no need to produce a new state tree
 ---
 <!-- 15_middleware.md-->
 
+---
+
+class: fullscreenw
+
+<img src="img/opera2.jpg" />
+
+---
+
 # Time Travelling!
+
+<i class="em em-clock8"></i>
 
 ---
 
 .inline_block[
 ```javascript
-snapshotDisposer = onSnapshot(targetStore, todos => {
-    self.history.push(snapshot)
-    self.undoIdx++
+import { onSnapshot, applySnapshot } from "mobx-state-tree"
+
+const store = SomeModel.create()
+
+const states = []
+
+onSnapshot(store, snapshot => {
+    states.push(snapshot)
 })
+
+function undo() {
+    applySnapshot(store, states.pop())
+}
 ```
 ]
 
 ---
 
+# Demo
+
+???
+
+add time traveller
+
+---
+
 .inline_block[
+.appear[
 ```javascript
 const TimeTraveller = types.model({
         history: types.optional(types.array(types.frozen), []),
         undoIdx: -1,
         targetPath: types.string
     })
+```
+]
+.appear[
+```javascript
     .actions(self => {
         let targetStore, snapshotDisposer
+```
+].appear[
+```javascript
 
         return {
             afterCreate() {
@@ -633,15 +712,24 @@ const TimeTraveller = types.model({
                     self.undoIdx++
                 })
             },
+```
+]
+.appear[
+```javascript
             undo() {
                 applySnapshot(targetStore, self.history[--self.undoIdx])
             },
+```
+]
+.appear[
+```javascript
             beforeDestroy() {
                 snapshotDisposer()
             }
         }
     })
 ```
+]
 ]
 
 ???
@@ -654,13 +742,10 @@ lifecycle hooks
 
 ---
 
-# Demo
+# Time travelling !== Undo / Redo
 
----
+<i class="em em-expressionless"></i>
 
-# But...
-
-.appear[Time travelling with snapshot sucks]
 
 ---
 
@@ -761,6 +846,8 @@ const reduxStore = asReduxStore(store)
 ```
 ]
 
+.appear[<i class="em em-cupid"></i>]
+
 ---
 
 # Demo
@@ -772,19 +859,20 @@ connect devtools
 <!-- 90_outro.md-->
 
 
-<img src="img/logo.png" style="height:80px"/>
 
-# Mobx-state-tree
+<table><tr><td>
+.appear[
+    <img src="img/quote.png" width="400"/>
+]
+</td><td>
+.appear[
+<img src="img/giphy.gif.1" width="400"/>
+]
+</td></tr></table>
 
-<img src="img/react.svg" width="50" /> It's React
+.appear[`npm install mobx-state-tree`].appear[<i class="em em-star2"></i>]
 
-<img src="img/git.png" width="50" /> It's Git
-
-...but for data
-
-`npm install mobx-state-tree`
-
-@mweststrate - @mattiamanzati
+.appear[@mweststrate - @mattiamanzati]
 
 		</textarea>
 		<script>require=(function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require=="function"&&require;if(!s&&o)return o(n,!0);if(r)return r(n,!0);throw new Error("Cannot find module '"+n+"'")}var u=t[n]={exports:{}};e[n][0].call(u.exports,function(t){var r=e[n][1][t];return i(r?r:t)},u,u.exports)}return t[n].exports}var r=typeof require=="function"&&require;for(var s=0;s<n.length;s++)i(n[s]);return i})({"components/printing":[function(require,module,exports){
